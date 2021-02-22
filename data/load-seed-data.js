@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 const client = require('../lib/client');
 // import our seed data:
-const animals = require('./animals.js');
+const products = require('./products.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
 
@@ -25,19 +26,20 @@ async function run() {
     const user = users[0].rows[0];
 
     await Promise.all(
-      animals.map(animal => {
+      products.map(product => {
         return client.query(`
-                    INSERT INTO animals (name, cool_factor, owner_id)
-                    VALUES ($1, $2, $3);
+                    INSERT INTO products (image, name, size, price, type, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6);
                 `,
-        [animal.name, animal.cool_factor, user.id]);
+        [product.image, product.name, product.size, product.price, product.type, user.id]);
       })
     );
     
 
+    // eslint-disable-next-line no-console
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
-  catch(err) {
+  catch (err) {
     console.log(err);
   }
   finally {
