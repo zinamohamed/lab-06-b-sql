@@ -95,12 +95,13 @@ describe('app routes', () => {
     test('creates a new product and that new product is in our product list', async() => {
       // define the new product we want create
       const newProduct = { 
-        'id':4,
+        
         'image': 'https://media2.giphy.com/media/aMO3eGc9frP9i24AqG/source.gif',
         'name': 'Alpha Arbutin', 
         'size': '12ml',
         'price': '$12',
-        'type': 'Serum'
+        'type': 'Serum',
+        
         
       };
 
@@ -134,6 +135,43 @@ describe('app routes', () => {
 
       // check to see that Alpha Arbutin matches the one we expected
       expect(alphaArbutin).toEqual(expectedProduct);
+    });
+    
+    test('updates a product', async() => {
+      // define the new candy we want create
+      const newProduct = {
+        
+        'image': 'test',
+        'name': 'test', 
+        'size': 'test',
+        'price': 'test',
+        'type': 'test',
+        
+      };
+
+      const expectedProduct = {
+        ...newProduct,
+        'id': 1,
+        'owner_id': 1,
+      };
+
+
+      // use the put endpoint to update a candy
+      await fakeRequest(app)
+        .put('/products/1')
+        // pass in our new candy as the req.body
+        .send(newProduct)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      // go grab the candy we expect to be updated
+      const updatedProduct = await fakeRequest(app)
+        .get('/products/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      // check to see that it matches our expectations
+      expect(updatedProduct.body).toEqual(expectedProduct);
     });
   });
 });
