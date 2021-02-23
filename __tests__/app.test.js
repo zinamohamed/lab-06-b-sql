@@ -173,5 +173,32 @@ describe('app routes', () => {
       // check to see that it matches our expectations
       expect(updatedProduct.body).toEqual(expectedProduct);
     });
+
+    test('deletes a single productwith the matching id', async() => {
+      const expectation = {
+        'id': 2, 
+        'image': 'https://media2.giphy.com/media/aMO3eGc9frP9i24AqG/source.gif',
+        'name': 'Retinol 0.5%', 
+        'size': '12ml',
+        'price': '$35',
+        'type': 'Exfoliant',
+        'owner_id': 1
+      
+      };
+
+      const data = await fakeRequest(app)
+        .delete('/products/2')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
+      const nothing = await fakeRequest(app)
+        .get('/products/2')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(nothing.body).toEqual('');
+    });
   });
 });
