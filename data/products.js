@@ -5,7 +5,7 @@ module.exports = [
     name: 'Niacinamide 10%', 
     size: '16ml',
     price: '$15',
-    type: 'Serum'
+    category_id: 1
   }, 
   {
     id: 2, 
@@ -13,7 +13,7 @@ module.exports = [
     name: 'Retinol 0.5%', 
     size: '12ml',
     price: '$35',
-    type: 'Exfoliant'
+    category_id: 2
   },
   {
     id: 3, 
@@ -21,6 +21,7 @@ module.exports = [
     name: 'AHA+BHA Solution', 
     size: '12ml',
     price: '$50',
-    type: 'Exfoliant'
+    category_id: 2
   },
+  
 ];

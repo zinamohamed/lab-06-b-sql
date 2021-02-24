@@ -13,7 +13,7 @@ async function run() {
     // run a query to create tables
     await client.query(`
                 CREATE TABLE users (
-                    id SERIAL PRIMARY KEY,
+                    id SERIAL PRIMARY KEY NOT NULL,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );           
@@ -23,9 +23,13 @@ async function run() {
                     name VARCHAR(512) NOT NULL,
                     size VARCHAR(512) NOT NULL,
                     price VARCHAR(512) NOT NULL,
-                    type VARCHAR(512) NOT NULL,
+                    category_id INTEGER NOT NULL REFRENCES categories(id),
                     owner_id INTEGER NOT NULL REFERENCES users(id)
-            );
+                );
+                CREATE TABLE categories (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(512) NOT NULL
+                )
         `);
 
     // eslint-disable-next-line no-console
