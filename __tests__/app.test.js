@@ -200,5 +200,26 @@ describe('app routes', () => {
 
       expect(nothing.body).toEqual('');
     });
+    
+    test('returns categories', async() => {
+
+      const expectation = [
+        {
+          id: 1,
+          name: 'Serum',
+        },
+        {
+          id: 2,
+          name: 'Exfoliant',
+        }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/categories')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
   });
 });
