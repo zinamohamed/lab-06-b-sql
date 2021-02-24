@@ -1,8 +1,8 @@
 module.exports = [
   {
-    name: 'Serum'
+    name: 'Serum',
   },
   {
-    name: 'Exfoliant'
+    name: 'Exfoliant',
   }
 ];
