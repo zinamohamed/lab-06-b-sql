@@ -16,20 +16,20 @@ async function run() {
                     id SERIAL PRIMARY KEY NOT NULL,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                );    
+                CREATE TABLE categories (
+                  id SERIAL PRIMARY KEY NOT NULL,
+                  name VARCHAR(512) NOT NULL
+              );       
                 CREATE TABLE products (
                     id SERIAL PRIMARY KEY NOT NULL,
                     image VARCHAR(512) NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     size VARCHAR(512) NOT NULL,
                     price VARCHAR(512) NOT NULL,
-                    category_id INTEGER NOT NULL REFRENCES categories(id),
+                    category_id INTEGER NOT NULL REFERENCES categories(id),
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );
-                CREATE TABLE categories (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(512) NOT NULL
-                )
         `);
 
     // eslint-disable-next-line no-console
