@@ -13,21 +13,22 @@ async function run() {
     // run a query to create tables
     await client.query(`
                 CREATE TABLE users (
-                    id SERIAL PRIMARY KEY NOT NULL,
+                    id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );    
-                CREATE TABLE categories (
+                CREATE TABLE types (
                   id SERIAL PRIMARY KEY NOT NULL,
                   name VARCHAR(512) NOT NULL
               );       
-                CREATE TABLE products (
+                CREATE TABLE boba (
                     id SERIAL PRIMARY KEY NOT NULL,
                     image VARCHAR(512) NOT NULL,
                     name VARCHAR(512) NOT NULL,
+                    sweetness_level VARCHAR(512) NOT NULL,
+                    boba_type VARCHAR(512) NOT NULL,
                     size VARCHAR(512) NOT NULL,
-                    price VARCHAR(512) NOT NULL,
-                    category_id INTEGER NOT NULL REFERENCES categories(id),
+                    type_id INTEGER NOT NULL REFERENCES types(id),
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );
         `);

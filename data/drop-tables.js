@@ -10,8 +10,8 @@ async function run() {
     
     await client.query(`
             DROP TABLE IF EXISTS users CASCADE;
-            DROP TABLE IF EXISTS products;
-            DROP TABLE IF EXISTS categories CASCADE;
+            DROP TABLE IF EXISTS boba;
+            DROP TABLE IF EXISTS types CASCADE;
         `);
 
     // eslint-disable-next-line no-console

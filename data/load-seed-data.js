@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 const client = require('../lib/client');
 // import our seed data:
-const products = require('./products.js');
+const boba = require('./boba.js');
 const usersData = require('./users.js');
-const categoriesData = require('./categories.js');
+const typesData = require('./types.js');
 const { getEmoji } = require('../lib/emoji.js');
 
 run();
@@ -25,25 +25,25 @@ async function run() {
     );
     
     await Promise.all(
-      categoriesData.map(category => {
+      typesData.map(type => {
         return client.query(`
-                      INSERT INTO categories (name)
+                      INSERT INTO types (name)
                       VALUES ($1)
                       RETURNING *;
                   `,
-        [category.name]);
+        [type.name]);
       })
     );
     
     const user = users[0].rows[0];
 
     await Promise.all(
-      products.map(product => {
+      boba.map(bobas => {
         return client.query(`
-                    INSERT INTO products (image, name, size, price, category_id, owner_id)
-                    VALUES ($1, $2, $3, $4, $5, $6);
+                    INSERT INTO boba (image, name, sweetness_level, boba_type, size, type_id, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7);
                 `,
-        [product.image, product.name, product.size, product.price, product.category_id, user.id]);
+        [bobas.image, bobas.name, bobas.sweetness_level, bobas.boba_type, bobas.size, bobas.type_id, user.id]);
       })
     );
     
