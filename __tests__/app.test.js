@@ -273,5 +273,33 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
+
+    test('deletes Boba from Boba directory', async() => { 
+      
+      const deletedBoba = { 
+        'id': 5, 
+        'image': 'https://media2.giphy.com/media/aMO3eGc9frP9i24AqG/source.gif',
+        'name': 'Taro Pearl Milk Tea', 
+        'sweetness_level': '80%',
+        'boba_type': 'Tapioca Pearl',
+        'size': '12ml',
+        'type_id': 2,
+        'owner_id':1,
+      };
+
+      const data = await fakeRequest(app)
+        .delete('/boba/5')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      
+      expect(data.body).toEqual(deletedBoba);
+
+      const nothing = await fakeRequest(app)
+        .get('/boba/5')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      
+      expect(nothing.body).toEqual('');
+    });
   });
 });
